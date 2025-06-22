@@ -1,19 +1,24 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import Recipto from './assets/Recipto Logo.jpg';
-import star from './assets/Rewards Stars.png';
-import taxservice from './assets/taxservices.webp';
-import Business from './assets/Filter Icons - Business.png';
-import Coins from './assets/Coins.png';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import Recipto from "./assets/Recipto Logo.jpg";
+import star from "./assets/Rewards Stars.png";
+import taxservice from "./assets/taxservices.webp";
+import Business from "./assets/Filter Icons - Business.png";
+import Coins from "./assets/Coins.png";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 function App() {
-  const [name, setName] = useState("0% discount");
-  const [cashBack, setCashBack] = useState("0");
+  const [name, setName] = useState(
+    "Salaried? Get FREE Tax Help + 40% OFF On Tax Services"
+  );
+  const [cashBack, setCashBack] = useState("9000");
 
   useEffect(() => {
     async function fetchOffer() {
       try {
-        const res = await axios.get('http://localhost:8000/offer');
+        const res = await axios.get("http://localhost:8000/offer");
         if (res.data.length > 0) {
           setName(res.data[0].name);
           setCashBack(res.data[0].cashBack);
@@ -25,68 +30,99 @@ function App() {
     fetchOffer();
   }, []);
 
+  const sliderSettings = {
+    dots: false,
+    infinite: false,
+    speed: 300,
+    slidesToShow: 2,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
   return (
-    <div className='bg-gray-300 flex items-center justify-center h-full'>
-      <div className='bg-gray-200 shadow rounded-md w-96 h-full'>
-        <div className='w-full'>
-          <div className='w-full'>
-            <h1 className='bg-white shadow w-26 rounded-full ml-64 text-sm text-gray-400'>How it works?</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
+      <div className="w-[375px] bg-gradient-to-b from-pink-200 via-pink-100 to-blue-100 rounded-3xl shadow-lg overflow-hidden">
+       
+        <div className=" px-4 pt-4 pb-6 rounded-b-3xl">
+          <div className="flex justify-end">
+            <button className="bg-white px-3 py-1 text-sm rounded-full shadow text-gray-500">
+              How it works?
+            </button>
           </div>
-          <div className='pl-40 pt-2'>
-            <img src={Recipto} alt="Logo" className='rounded-full h-20 w-20' />
-          </div>
-          <div className='pl-40 pt-2'>
-            <h1 className='font-bold'>Recip.to</h1>
+          <div className="flex flex-col items-center mt-2">
+            <img
+              src={Recipto}
+              alt="Logo"
+              className="rounded-full w-20 h-20 object-cover"
+            />
+            <h2 className="font-bold mt-2 text-xl">Recip.to</h2>
           </div>
         </div>
 
-        <div className='flex items-center justify-center rounded-2xl h-10 w-full'>
-          <div className='flex w-60 bg-white shadow-md rounded-full h-8'>
-            <div className='flex items-center pl-5 pr-10 h-8 w-30 rounded-full bg-blue-600 text-white'>
-              <h1>Offers</h1>
-              <img src={star} alt="" className='h-3 w-4 ml-1' />
+        
+        <div className="flex justify-center -mt-5">
+          <div className="flex w-[300px] h-10 bg-white rounded-full shadow-inner overflow-hidden">
+            <div className="flex items-center justify-center bg-purple-700 text-white rounded-full px-4 font-semibold">
+              <p className="text-sm">Offers</p>
+              <img src={star} alt="star" className="w-4 h-4 ml-1" />
             </div>
-            <div className='flex items-center justify-center pr-4 text-gray-500'>
-              <h1>My Coupons</h1>
+            <div className="flex-1 flex items-center justify-center text-gray-500 text-sm font-semibold">
+              My Coupons
             </div>
           </div>
         </div>
 
-        <div className='h-64 bg-white'>
-          <img src={taxservice} alt="" className='p-2 rounded-4xl' />
-          <h1 className='font-bold ml-3'>Tax Services Offers</h1>
-          <h1 className='text-gray-400 ml-3'>14 offers</h1>
-        </div>
-
-        <div className='flex items-center justify-between h-8'>
-          <div className='h-8 w-14 flex items-center justify-center bg-white rounded-full'>
-            <h1 className='text-sm'>All</h1>
-          </div>
-          <div className='h-8 pt-2 pl-2 bg-white rounded-full flex items-center justify-center'>
-            <h1 className='w-44 h-6 text-sm'>For salaried professionals</h1>
-          </div>
-          <div className='bg-white w-10 h-8 rounded-full flex items-center justify-center'>
-            <img src={Business} alt="" className='h-5 w-5' />
+       
+        <div className="mt-6 px-3 bg-white p-2 m-2 rounded-md">
+          <img src={taxservice} alt="tax" className="rounded-2xl w-full" />
+          <div className="pt-2">
+            <h3 className="font-bold text-lg">Tax Services Offers</h3>
+            <p className="text-gray-500 text-sm">14 Offers</p>
           </div>
         </div>
 
-        <div className='h-0.5 w-60 bg-gray-400'></div>
+       
+        <div className="px-4 mt-4">
+          <Slider {...sliderSettings}>
+            <button className="bg-white text-sm px-4 py-1 rounded-full border shadow-sm font-medium text-gray-700 whitespace-nowrap">
+              ✨ All
+            </button>
+            <button className="bg-white text-sm px-4 py-1 rounded-full border shadow-sm font-medium text-gray-700 whitespace-nowrap">
+              👤 For Salaried Professionals
+            </button>
+            <button className="bg-white text-sm px-3 py-1 rounded-full border shadow-sm font-medium text-gray-700 flex items-center justify-center">
+              <img src={Business} alt="Business" className="w-4 h-4" />
+            </button>
+          </Slider>
+        </div>
 
-        <div className='bg-white'>
-          <div className='flex items-center p-3'>
-            <img src={Recipto} alt="" className='h-20 w-20 rounded-3xl' />
-            <h1 className='pl-3 text-gray-400'>Recip.to</h1>
+
+        <div className="mx-4 my-3 h-[1px] bg-gray-300" />
+
+        
+        <div className="bg-white p-2 m-2 rounded-md">
+          <div className="flex items-center">
+            <img
+              src={Recipto}
+              alt="logo"
+              className="w-10 h-10 rounded-xl object-cover"
+            />
+            <p className="text-gray-600 ml-2 font-medium">Recip.to</p>
           </div>
-          <div>
-            <h1 className='font-extrabold pl-4'>{name}</h1>
+
+          <div className="mt-3">
+            <p className="font-bold text-[17px] leading-snug">{name}</p>
           </div>
-          <div className='flex items-center justify-between'>
-            <div className='flex items-center border border-gray-300 rounded-md m-2 p-2'>
-              <h1 className='mr-1'>Earn</h1>
-              <img src={Coins} alt="" className='h-4 w-4 mx-1' />
-              <h1>{cashBack} Coins</h1>
+
+          <div className="flex items-center justify-between mt-3">
+            <div className="flex items-center border border-gray-300 rounded-xl px-3 py-1 text-sm font-medium text-gray-700">
+              <span className="mr-1">Earn</span>
+              <img src={Coins} alt="coin" className="w-4 h-4 mr-1" />
+              <span>{cashBack} Coins</span>
             </div>
-            <button className='text-white h-8 w-40 rounded-md bg-purple-600 hover:bg-purple-800'>View</button>
+            <button className="bg-purple-600 text-white px-6 py-2 text-sm rounded-xl hover:bg-purple-700 font-semibold">
+              VIEW
+            </button>
           </div>
         </div>
       </div>
