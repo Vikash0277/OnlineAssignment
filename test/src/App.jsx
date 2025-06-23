@@ -34,10 +34,12 @@ function App() {
     dots: false,
     infinite: false,
     speed: 300,
-    slidesToShow: 2,
+    slidesToShow: 1, // this can be 1 or anything, doesn't matter when variableWidth is true
     slidesToScroll: 1,
     arrows: false,
+    variableWidth: true, // 🔥 This is what you need!
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 p-4">
@@ -62,7 +64,7 @@ function App() {
         
         <div className="flex justify-center -mt-5">
           <div className="flex w-[300px] h-10 bg-white rounded-full shadow-inner overflow-hidden">
-            <div className="flex items-center justify-center bg-purple-700 text-white rounded-full px-4 font-semibold">
+            <div className="flex items-center justify-center w-[150px] bg-purple-700 text-white rounded-full px-4 font-semibold">
               <p className="text-sm">Offers</p>
               <img src={star} alt="star" className="w-4 h-4 ml-1" />
             </div>
@@ -82,19 +84,27 @@ function App() {
         </div>
 
        
-        <div className="px-4 mt-4">
-          <Slider {...sliderSettings}>
+       <div className="px-4 mt-4">
+        <Slider {...sliderSettings}>
+          <div className="w-auto px-1">
             <button className="bg-white text-sm px-4 py-1 rounded-full border shadow-sm font-medium text-gray-700 whitespace-nowrap">
               ✨ All
             </button>
+          </div>
+          <div className="w-auto px-1">
             <button className="bg-white text-sm px-4 py-1 rounded-full border shadow-sm font-medium text-gray-700 whitespace-nowrap">
               👤 For Salaried Professionals
             </button>
+          </div>
+          <div className="w-auto px-1">
             <button className="bg-white text-sm px-3 py-1 rounded-full border shadow-sm font-medium text-gray-700 flex items-center justify-center">
               <img src={Business} alt="Business" className="w-4 h-4" />
             </button>
-          </Slider>
-        </div>
+          </div>
+        </Slider>
+      </div>
+
+
 
 
         <div className="mx-4 my-3 h-[1px] bg-gray-300" />
